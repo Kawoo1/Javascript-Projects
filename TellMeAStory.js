@@ -1,6 +1,18 @@
 // Import "readline" module to read user input
 const readline = require('readline');
 
+/*  This program was authored by: Kyle Shanahan
+    To run the program, follow the steps below:
+    1) Users will need Node.js installed. To install Node.js, follow the instructions at https://nodejs.org/
+    2) Have this file downloaded locally.
+    3) In the terminal, first ensure the directory the file is stored to is selected 
+    by using the command: "cd path/to/your/file" <--- Make sure to replace "path/to/your/file" with the path to your file 
+    4) Then, type "node TellMeAStory.js" in terminal and hit enter
+    The program will begin running and then prompt the user for input and generate a short story based on the input
+    
+    !! To EXIT the program, type "Ctrl + C" !!
+*/
+
 // Create interface for reading user input
 const rl = readline.createInterface({
   input: process.stdin,
