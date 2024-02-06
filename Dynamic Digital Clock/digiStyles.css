@@ -1,0 +1,28 @@
+/* 
+  - This file was authored by: Kyle Shanahan
+  - This stile sheet creates a container for the digital clock and stylizes the body as well as the clock in the container
+  in order to be more user appealing.
+*/
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    text-align: center;
+}
+
+.clock {
+    font-size: 3rem;
+    color: #333;
+    margin-top: 20px;
+    letter-spacing: 2px;
+    border-bottom: 3px solid #333;
+    padding-bottom: 10px;
+}
