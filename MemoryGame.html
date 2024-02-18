@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- This code was published by Kyle Shanahan -->
+  <!-- The code creates a small memory game for users to test their memory skills. -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="Author" content="Kyle Shanahan">
+  <title>Memory Card Game</title>
+  <!-- This CSS makes the game look more appealing as well as user friendly-->
+  <style>
+    .card {
+      width: 100px;
+      height: 100px;
+      background-color: #f0f0f0;
+      margin: 5px;
+      display: inline-block;
+      text-align: center;
+      line-height: 100px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Memory Card Game</h1>
+<div id="gameBoard"></div>
+<div>Time: <span id="timer">0</span> seconds</div>
+<div>Score: <span id="score">0</span></div>
+
+<script>
+  // Define an array to hold card values
+  const cards = ['A', 'A', 'B', 'B', 'C', 'C', 'D', 'D', 'E', 'E'];
+
+  let shuffledCards = [];
+  let revealedCards = [];
+  let matchedCards = [];
+  let timerInterval;
+  let score = 0;
+  let timer = 0;
+
+  // Function to shuffle the cards array
+  function shuffle(array) {
+    let currentIndex = array.length, temporaryValue, randomIndex;
+
+    // While there remain elements to shuffle...
+    while (0 !== currentIndex) {
+
+      // Pick a remaining element...
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex -= 1;
+
+      // And swap it with the current element.
+      temporaryValue = array[currentIndex];
+      array[currentIndex] = array[randomIndex];
+      array[randomIndex] = temporaryValue;
+    }
+
+    return array;
+  }
+
+  // Function to initialize the game
+  function initializeGame() {
+    shuffledCards = shuffle(cards);
+    revealedCards = [];
+    matchedCards = [];
+    score = 0;
+    timer = 0;
+    clearInterval(timerInterval);
+    document.getElementById('gameBoard').innerHTML = '';
+    document.getElementById('score').innerText = score;
+
+    // Create card elements and append them to the game board
+    shuffledCards.forEach((card, index) => {
+      const cardElement = document.createElement('div');
+      cardElement.classList.add('card');
+      cardElement.setAttribute('data-index', index);
+      cardElement.innerText = '?';
+      cardElement.addEventListener('click', () => revealCard(index));
+      document.getElementById('gameBoard').appendChild(cardElement);
+    });
+
+    startTimer();
+  }
+
+  // Function to start the timer
+  function startTimer() {
+    timerInterval = setInterval(() => {
+      timer++;
+      document.getElementById('timer').innerText = timer;
+    }, 1000);
+  }
+
+  // Function to reveal a card
+  function revealCard(index) {
+    if (revealedCards.length === 2) {
+      return;
+    }
+
+    const card = shuffledCards[index];
+    const cardElement = document.querySelector(`.card[data-index="${index}"]`);
+
+    // Check if the card is already revealed or matched
+    if (revealedCards.includes(index) || matchedCards.includes(card)) {
+      return;
+    }
+
+    cardElement.innerText = card;
+    revealedCards.push(index);
+
+    if (revealedCards.length === 2) {
+      setTimeout(checkMatch, 1000);
+    }
+  }
+
+  // Function to check if the revealed cards match
+  function checkMatch() {
+    const [index1, index2] = revealedCards;
+    const card1 = shuffledCards[index1];
+    const card2 = shuffledCards[index2];
+
+    if (card1 === card2) {
+      matchedCards.push(card1);
+      score += 10;
+      document.getElementById('score').innerText = score;
+      if (matchedCards.length === cards.length / 2) {
+        clearInterval(timerInterval);
+        alert(`Congratulations! You won in ${timer} seconds with a score of ${score}`);
+      }
+    } else {
+      // Hide the cards if they don't match
+      const cardElement1 = document.querySelector(`.card[data-index="${index1}"]`);
+      const cardElement2 = document.querySelector(`.card[data-index="${index2}"]`);
+      cardElement1.innerText = '?';
+      cardElement2.innerText = '?';
+    }
+
+    revealedCards = [];
+  }
+
+  // Initialize the game when the page loads
+  window.onload = initializeGame;
+</script>
+
+</body>
+</html>
