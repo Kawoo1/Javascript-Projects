@@ -6,3 +6,4 @@ This repository is a compilation of javascript files and projects serving multip
 3) Dynamic Digital Clock (Folder: Dynamic Digital Clock) (Files: Dynamic-and-Digital.html, digiClock.js, digiStyles.css)
 4) Countdown Timer (JSCountdownTimer.html)
 5) Memory Game (JSMemoryGame.html)
+6) Currency Converter (JSCurrencyConverter.html)
