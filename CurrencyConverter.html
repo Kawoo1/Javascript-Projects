@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="Author" content="Kyle Shanahan">
+  <title>Currency Converter</title>
+
+  <!-- 
+  Get tired of endlessly scrolling through google's currency converter looking for that ONE currency you're trying
+  to convert to? Well I do, and so I made this currency converter that holds the currencies I most commonly find myself converting between.
+  It also has a little *pizzaz* for each currency theme.
+  -->
+</head>
+<body>
+
+<h1>Currency Converter</h1>
+
+<label for="amount">Amount:</label>
+<input type="number" id="amount" min="0">
+<select id="fromCurrency">
+  <option value="USD">USD</option>
+  <option value="JPY">JPY</option>
+  <option value="EUR">EUR</option>
+  <option value="GBP">GBP</option>
+  <option value="BTC">BTC</option>
+  <option value="CAD">CAD</option>
+  <option value="CNY">CNY</option>
+  <option value="CHF">CHF</option>
+</select>
+<label for="toCurrency">to</label>
+<select id="toCurrency">
+  <option value="USD">USD</option>
+  <option value="JPY">JPY</option>
+  <option value="EUR">EUR</option>
+  <option value="GBP">GBP</option>
+  <option value="BTC">BTC</option>
+  <option value="CAD">CAD</option>
+  <option value="CNY">CNY</option>
+  <option value="CHF">CHF</option>
+</select>
+<button onclick="convertCurrency()">Convert</button>
+
+<div id="result"></div>
+
+<script>
+  function convertCurrency() {
+    const amount = parseFloat(document.getElementById('amount').value);
+    const fromCurrency = document.getElementById('fromCurrency').value;
+    const toCurrency = document.getElementById('toCurrency').value;
+
+    // Fetch exchange rates from a currency conversion API
+    fetch(`https://api.exchangerate-api.com/v4/latest/${fromCurrency}`)
+      .then(response => response.json())
+      .then(data => {
+        const exchangeRate = data.rates[toCurrency];
+        const convertedAmount = amount * exchangeRate;
+        document.getElementById('result').innerText = `${amount} ${fromCurrency} = ${convertedAmount.toFixed(2)} ${toCurrency}`;
+      })
+      .catch(error => {
+        console.error('Error fetching exchange rates:', error);
+        document.getElementById('result').innerText = 'Error fetching exchange rates. Please try again later.';
+      });
+  }
+</script>
+
+</body>
+</html>
