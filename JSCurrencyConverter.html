@@ -11,6 +11,42 @@
   to convert to? Well I do, and so I made this currency converter that holds the currencies I most commonly find myself converting between.
   It also has a little *pizzaz* for each currency theme.
   -->
+  
+ <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f7f7f7;
+      text-align: center;
+    }
+    h1 {
+      color: #333;
+    }
+    label {
+      display: block;
+      margin-top: 20px;
+      font-size: 18px;
+    }
+    select, input {
+      padding: 10px;
+      font-size: 16px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #4CAF50;
+      border: none;
+      color: white;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    #result {
+      margin-top: 20px;
+      font-size: 20px;
+      color: #333;
+    }
+  </style>
 </head>
 <body>
 
@@ -18,26 +54,27 @@
 
 <label for="amount">Amount:</label>
 <input type="number" id="amount" min="0">
+<label for="fromCurrency">From:</label>
 <select id="fromCurrency">
-  <option value="USD">USD</option>
-  <option value="JPY">JPY</option>
-  <option value="EUR">EUR</option>
-  <option value="GBP">GBP</option>
-  <option value="BTC">BTC</option>
-  <option value="CAD">CAD</option>
-  <option value="CNY">CNY</option>
-  <option value="CHF">CHF</option>
+  <option value="USD">USD - US Dollar</option>
+  <option value="JPY">JPY - Japanese Yen</option>
+  <option value="EUR">EUR - Euro</option>
+  <option value="GBP">GBP - British Pound Sterling</option>
+  <option value="BTC">BTC - Bitcoin</option>
+  <option value="CAD">CAD - Canadian Dollar</option>
+  <option value="CNY">CNY - Chinese Yuan</option>
+  <option value="CHF">CHF - Swiss Franc</option>
 </select>
-<label for="toCurrency">to</label>
+<label for="toCurrency">To:</label>
 <select id="toCurrency">
-  <option value="USD">USD</option>
-  <option value="JPY">JPY</option>
-  <option value="EUR">EUR</option>
-  <option value="GBP">GBP</option>
-  <option value="BTC">BTC</option>
-  <option value="CAD">CAD</option>
-  <option value="CNY">CNY</option>
-  <option value="CHF">CHF</option>
+  <option value="USD">USD - US Dollar</option>
+  <option value="JPY">JPY - Japanese Yen</option>
+  <option value="EUR">EUR - Euro</option>
+  <option value="GBP">GBP - British Pound Sterling</option>
+  <option value="BTC">BTC - Bitcoin</option>
+  <option value="CAD">CAD - Canadian Dollar</option>
+  <option value="CNY">CNY - Chinese Yuan</option>
+  <option value="CHF">CHF - Swiss Franc</option>
 </select>
 <button onclick="convertCurrency()">Convert</button>
 
@@ -56,7 +93,7 @@
       .then(data => {
         const exchangeRate = data.rates[toCurrency];
         const convertedAmount = amount * exchangeRate;
-        resultElement.innerText = `${amount} ${fromCurrency} = ${convertedAmount.toFixed(2)} ${toCurrency}`;
+        resultElement.innerText = `${amount.toFixed(2)} ${fromCurrency} = ${convertedAmount.toFixed(2)} ${toCurrency}`;
         
         // Change theme based on the selected currency
         changeTheme(toCurrency);
@@ -73,14 +110,14 @@
       body.style.backgroundColor = 'white';
       body.style.color = 'red';
     } else if (currency === 'USD') {
-      body.style.backgroundColor = 'blue';
+      body.style.backgroundColor = 'red';
       body.style.color = 'white';
     } else if (currency === 'CAD') {
       body.style.backgroundColor = 'red';
       body.style.color = 'white';
     } else if (currency === 'GBP') {
       body.style.backgroundColor = 'blue';
-      body.style.color = 'red';
+      body.style.color = 'white';
     } else if (currency === 'BTC') {
       body.style.backgroundColor = 'orange';
       body.style.color = 'white';
@@ -93,7 +130,7 @@
     } else {
       // Default theme
       body.style.backgroundColor = 'white';
-      body.style.color = 'black';
+      body.style.color = '#333';
     }
   }
 </script>
