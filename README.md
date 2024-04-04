@@ -7,3 +7,6 @@ This repository is a compilation of javascript files and projects serving multip
 4) Countdown Timer (JSCountdownTimer.html)
 5) Memory Game (JSMemoryGame.html)
 6) Currency Converter (JSCurrencyConverter.html)
+
+A smaller sub-category of base Java files are also included:
+1) Drawing Pane (Folder: Java (Base Java projects)/Drawing Pane) (Files: Drawing Pane(As.7).java, DrawingPane.java, DrawingPane.txt, README.TXT, package.bluej)
